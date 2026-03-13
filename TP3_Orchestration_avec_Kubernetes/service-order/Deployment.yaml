@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-user
+  template:
+    metadata:
+      labels:
+        app: service-user
+    spec:
+      containers:
+        - name: service-user
+          image: user-service:latest
+          ports:
+            - containerPort: 5001
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-order
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-order
+  template:
+    metadata:
+      labels:
+        app: service-order
+    spec:
+      containers:
+        - name: service-order
+          image: order-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5002
